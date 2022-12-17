@@ -14,6 +14,7 @@ import * as Animatable from 'react-native-animatable';
 import { defaultProps, propTypes } from './SegmentedPickerPropTypes';
 import styles from './SegmentedPickerStyles';
 import Toolbar from '../Toolbar';
+import TimeInput from '../TimeInput';
 import SelectionMarker from '../SelectionMarker';
 import UIPicker from '../UIPicker';
 import Cache from '../../services/Cache';
@@ -65,6 +66,7 @@ export interface Props {
   onValueChange: (event: SelectionEvent) => void;
   onCancel: (event: Selections) => void,
   onConfirm: (event: Selections) => void,
+  setTime: (hour: string, minute: string) => void,
 }
 
 interface State {
@@ -671,6 +673,9 @@ export default class SegmentedPicker extends Component<Props, State> {
             ref={this.pickerContainerRef}
             style={[styles.pickerContainer, { height: `${size * 100}%`, backgroundColor }]}
           >
+            <TimeInput
+              setTime={this.props.setTime}
+            />
             <Toolbar
               confirmText={confirmText}
               confirmTextColor={confirmTextColor}

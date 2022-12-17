@@ -18,6 +18,7 @@ export const defaultProps = {
   onValueChange: () => {},
   onCancel: () => {},
   onConfirm: () => {},
+  setTime: (hour: string, minute: string) => {},
 };
 
 export const propTypes = {
@@ -78,4 +79,5 @@ export const propTypes = {
   onValueChange: PropTypes.func,
   onCancel: PropTypes.func,
   onConfirm: PropTypes.func,
+  setTime: PropTypes.func,
 };

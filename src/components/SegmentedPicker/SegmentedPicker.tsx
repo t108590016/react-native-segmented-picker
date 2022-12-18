@@ -54,6 +54,7 @@ export interface Props {
   size: number;
   confirmText: string;
   nativeTestID: string;
+  timeInput: boolean;
   // Styling
   confirmTextColor: string;
   pickerItemTextColor: string;
@@ -209,6 +210,7 @@ export default class SegmentedPicker extends Component<Props, State> {
     emitEvent: boolean = true,
     zeroFallback: boolean = false,
   ): void => {
+
     const index = this.findItemIndexByValue(value, column);
     if (index !== -1) {
       this.selectIndex(index, column, animated, emitEvent);
@@ -238,6 +240,7 @@ export default class SegmentedPicker extends Component<Props, State> {
     }
     const { onValueChange } = this.props;
     const list = this.cache.get(`${FLAT_LIST_REF}${column}`);
+
     if (!list) {
       return;
     }
@@ -355,8 +358,8 @@ export default class SegmentedPicker extends Component<Props, State> {
             this.selectValue(
               defaultSelections[column],
               column,
-              false,
-              false,
+              true,
+              true,
               true,
             )
           ));
@@ -368,7 +371,7 @@ export default class SegmentedPicker extends Component<Props, State> {
             && this.columnItems(column.key).length > 0
           ))
           .forEach(column => (
-            this.selectIndex(0, column.key, false, false)
+            this.selectIndex(0, column.key, true, true)
           ));
       }, 0);
     }
@@ -381,7 +384,7 @@ export default class SegmentedPicker extends Component<Props, State> {
    * @return {void}
    */
   private setFlatListRef = (column: string, ref: FlatList<any> | null): void => {
-    if (ref) {
+    if (ref && (this.cache.get(`${FLAT_LIST_REF}${column}`) != ref)) {
       this.cache.set(`${FLAT_LIST_REF}${column}`, ref);
       this.setDefaultSelections();
     }
@@ -673,9 +676,6 @@ export default class SegmentedPicker extends Component<Props, State> {
             ref={this.pickerContainerRef}
             style={[styles.pickerContainer, { height: `${size * 100}%`, backgroundColor }]}
           >
-            <TimeInput
-              setTime={this.props.setTime}
-            />
             <Toolbar
               confirmText={confirmText}
               confirmTextColor={confirmTextColor}
@@ -683,6 +683,12 @@ export default class SegmentedPicker extends Component<Props, State> {
               toolbarBorderColor={toolbarBorderColor}
               onConfirm={this.onConfirm}
             />
+            
+            {this.props.timeInput &&
+              <TimeInput
+                setTime={this.props.setTime}
+              />
+            }
 
             <View style={styles.selectableArea}>
               {/* Native iOS Picker is enabled */}

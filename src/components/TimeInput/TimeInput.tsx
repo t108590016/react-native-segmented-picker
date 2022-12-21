@@ -22,8 +22,23 @@ export default class SegmentedPicker extends Component<Props, State> {
 
   return (
   <View 
-    style={{ width: '100%', justifyContent: "center", alignItems: "center", padding: 20 }}>
-    <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: 'rgba(0,0,0,.05)', width: '100%', height: 50 }}>
+    style={{ 
+      width: '100%', 
+      justifyContent: "center", 
+      alignItems: "center", 
+      padding: 20 
+    }}
+  >
+    <View 
+      style={{ 
+        flexDirection: "row", 
+        justifyContent: "center", 
+        alignItems: "center", 
+        backgroundColor: 'rgba(0,0,0,.05)', 
+        width: '100%', 
+        height: 50 
+      }}
+    >
       <TextInput
         value={inputHour}
         keyboardType={"numeric"}
@@ -41,8 +56,7 @@ export default class SegmentedPicker extends Component<Props, State> {
         onChangeText={(val) => this.setState({inputHour: val})}
         onEndEditing={() => {
           if (inputHour && inputMinute) {
-          ((parseInt(inputHour) < 24 && parseInt(inputMinute) < 60) && this.props.setTime(inputHour, inputMinute))
-          console.log("hour onEndEditing", inputHour, inputMinute)
+            (parseInt(inputHour) < 24 && parseInt(inputMinute) < 60) && this.props.setTime(inputHour, inputMinute)
           }
         }}
         maxLength={2}
@@ -69,8 +83,7 @@ export default class SegmentedPicker extends Component<Props, State> {
         onChangeText={(val) => this.setState({inputMinute: val})}
         onEndEditing={() => {
           if (inputHour && inputMinute) {
-          ((parseInt(inputHour) <= 24 && parseInt(inputMinute) < 60) && this.props.setTime(inputHour, inputMinute))
-          console.log("minute onEndEditing", inputHour, inputMinute)
+            (parseInt(inputHour) <= 24 && parseInt(inputMinute) < 60) && this.props.setTime(inputHour, inputMinute)
           }
         }}
         maxLength={2}

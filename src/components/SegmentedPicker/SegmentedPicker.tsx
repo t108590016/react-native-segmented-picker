@@ -593,7 +593,7 @@ export default class SegmentedPicker extends Component<Props, State> {
   }): ReactElement => {
     const { pickerItemTextColor } = this.props;
     return (
-      <View style={styles.pickerItem}>
+      <View style={{...styles.pickerItem}}>
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => this.selectIndex(index, column)}
